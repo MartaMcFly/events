@@ -21,6 +21,9 @@
       <td><%= @event.creator.first_name %></td>
       <td><%= @event.attendees.count %></td>
       <td><%= @event.price%></td>
+      <%if @event.creator == current_user%>
+      <td><%= link_to 'Edit', edit_event_path(@event),method: :get %></td>
+      <% end %>
       <%if @event.date.future?%>
         <%if @event.attendees.include?(current_user)%>
           <%= button_to "Leave the event", unsubscribe_path(@event), :class => 'btn btn-danger' %>

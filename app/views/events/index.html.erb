@@ -30,7 +30,9 @@
       <td><%= event.creator.first_name %></td>
       <td><%= event.attendees.count %></td>
       <td><%= link_to "See event", event_path(event) %></td>
+        <%if event.creator == current_user%>
       <td><%= link_to "Delete", event_path(event), method: :delete %></td>
+        <% end %>
     </tr>
   <% end %>
 </table>
