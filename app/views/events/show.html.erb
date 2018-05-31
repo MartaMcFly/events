@@ -1,0 +1,77 @@
+<% if user_signed_in?%>
+  <h1>
+    Event name:
+    <%= @event.name %>
+  </h1>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Organizer</th>
+      <th>Attendees</th>
+      <th>Price</th>
+    </tr>
+
+    <tr>
+      <td><%= @event.name %></td>
+      <td><%= @event.date.strftime("%d-%m-%Y") %></td>
+      <td><%= @event.place %></td>
+      <td><%= @event.creator.first_name %></td>
+      <td><%= @event.attendees.count %></td>
+      <td><%= @event.price%></td>
+      <%if @event.date.future?%>
+        <%if @event.attendees.include?(current_user)%>
+          <%= button_to "Leave the event", unsubscribe_path(@event), :class => 'btn btn-danger' %>
+          <%elsif @event.creator == current_user%>
+            <span class="badge badge-info">
+              Your already created the event, no need to pay!</span></td>
+        <%else%>
+          <%= form_tag subscribe_path(@event) do %>
+          <article>
+            <% if flash[:error].present? %>
+              <div id="error_explanation">
+                <p><%= flash[:error] %></p>
+              </div>
+            <% end %>
+          </article>
+          <script
+            src="https://checkout.stripe.com/checkout.js"
+            class="stripe-button"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-description="Join the event"
+            data-amount="<%= @event.price.to_f * 100 %>"
+            data-currency="eur"
+            data-locale="auto"></script>
+        <% end %>
+      <%end%>
+      <%elsif @event.date.past?%>
+        <span class="badge badge-danger">You can't subscribe to a past event</span></td>
+    <%end%>
+  </br>
+</br>
+</tr>
+</table>
+
+<table class="table table-striped">
+<caption>Attendees</caption>
+<tr>
+<th>Name</th>
+<th>Email address</th>
+</tr>
+<% @event.attendees.each do |attendee| %>
+<tr>
+  <td>
+    <%= attendee.first_name %>
+  </td>
+  <td>
+    <%= attendee.email %>
+  </td>
+</tr>
+<% end %>
+</table>
+
+<% else %>
+<%= render 'events/renders/createaccount' %>
+<% end %>

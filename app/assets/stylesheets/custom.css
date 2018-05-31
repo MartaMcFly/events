@@ -1,0 +1,44 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  font-family: sans-serif;
+}
+nav {
+  background: #ddd;
+  color: #111;
+}
+
+nav ul {
+  padding: 20px;
+  margin: 0px;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #000;
+  border: 1px solid #fff;
+  padding: 10px 50px 10px 50px;
+  border-radius: 100px;
+  background-color: #bbb ;
+}
+
+nav a:hover {
+  background-color: #fff;
+}
+
+/* début devise */
+#login-devise {
+  margin: 70px auto;
+  width: 100%;
+text-align: center;
+}
+
+#login-devise a {
+  font-weight: lighter;
+}
+/* fin devise */

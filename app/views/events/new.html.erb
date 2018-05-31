@@ -1,0 +1,34 @@
+<h1>Create a new event</h1>
+<p class="text-center"> <%= current_user.first_name %>, please fill in the information below to create your event! </p>
+
+<%= form_for(@event, url: events_path, method: :post) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "Name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description, autocomplete: "Description" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :place %><br />
+    <%= f.text_field :place, autocomplete: "Place" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.date_field :date, autocomplete: "Date" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.number_field :price, autocomplete: "Price" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create Event!" %>
+  </div>
+<% end %>

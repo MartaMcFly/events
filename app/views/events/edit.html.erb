@@ -1,0 +1,37 @@
+<% if user_signed_in? %>
+
+<h1>Edit your event  <%= @event.name %></h1>
+<p class="text-center"> <%= current_user.first_name %>, you can edit your event easily here! </p>
+
+<%= form_for(@event, url: event_path, method: :patch) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: @event.name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description, autocomplete: @event.description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :place %><br />
+    <%= f.text_field :place, autocomplete: @event.place %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.date_field :date, autocomplete: @event.date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.number_field :price, autocomplete: @event.price %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update Event!" %>
+  </div>
+  <% end %>
+<% end %>

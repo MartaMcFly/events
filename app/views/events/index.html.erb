@@ -1,0 +1,40 @@
+<% if user_signed_in?%>
+<h1>Latest events</h1>
+<p><%= current_user.first_name %>, here you'll find the latest created events! </p>
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Date </th>
+    <th>Location </th>
+    <th>Price </th>
+    <th>Organizer </th>
+    <th>Attendees</th>
+    <th></th>
+
+  </tr>
+
+  <% @events.each do |event|%>
+  <%if event.date.today?%>
+        <td><span class="badge badge-success">Today</span>
+      <%elsif event.date.past?%>
+      <td><span class="badge badge-danger">Past</span></td>
+      <%elsif event.date.future?%>
+      <td><span class="badge badge-info">Upcoming</span></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td><%= event.name %></td>
+      <td><%= event.date.strftime("%d-%m-%Y") %></td>
+      <td><%= event.place %></td>
+      <td><%= event.price %></td>
+      <td><%= event.creator.first_name %></td>
+      <td><%= event.attendees.count %></td>
+      <td><%= link_to "See event", event_path(event) %></td>
+      <td><%= link_to "Delete", event_path(event), method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
+<% else %>
+<%= render 'events/renders/createaccount' %>
+
+<% end %>
